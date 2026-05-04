@@ -1,0 +1,137 @@
+
+
+i saw a customer revenue bridge , where i have last period , NRR , GRR , then some categioes like churn , upsell 
+
+⚠️ But this is NOT always correct
+
+Power BI doesn’t understand meaning, only data type.
+
+🔴 Wrong cases
+Column	Should NOT be SUM
+Order ID	❌
+Phone Number	❌
+Age	❌ (depends)
+Product ID	❌
+
+👉 Summing these gives nonsense results
+
+✅ When SUM is correct
+Column	SUM?
+Revenue	✔
+Sales Amount	✔
+Quantity	✔
+Profit	✔
+
+
+
+
+
+
+🔁 1. Cross-Filtering
+
+👉 When one visual filters other visuals completely
+
+🧠 Example
+Bar chart: Sales by Product
+Table: Sales details
+
+👉 Click Product A in bar chart
+➡️ Table shows only Product A rows
+
+✅ This is full filtering
+
+🎯 2. Cross-Highlighting
+
+👉 When one visual highlights part of data, but doesn’t fully filter it
+
+🧠 Example
+Bar chart: Sales by Product
+Column chart: Sales by Region
+
+👉 Click Product A
+
+➡️ In Region chart:
+
+Total bars stay
+But a portion is highlighted (Product A contribution)
+
+✅ This is partial filtering (visual emphasis)
+
+🔗 3. Active Relationship
+
+👉 This is data model level, not visual level
+
+It defines:
+
+How tables are connected
+
+🧠 Example
+
+You have:
+
+Sales_revenue (Fact table)
+Products (Dimension table)
+
+Connected by:
+
+ProductID
+
+👉 If relationship is Active:
+
+Filters flow automatically
+Measures work correctly
+⚠️ Important
+
+Only ONE active relationship allowed between two tables
+
+If multiple exist:
+
+One = Active ✅
+Others = Inactive ❌
+
+Use in DAX:
+
+USERELATIONSHIP()
+⚡ Key Differences
+Concept	Level	What it does
+Cross-filtering	Visual	Filters other visuals completely
+Cross-highlighting	Visual	Highlights part of data
+Active relationship	Data model	Controls how tables connect
+🔥 How they work together
+Active relationship
+→ connects tables (Products ↔ Sales)
+User clicks visual
+→ creates filter context
+Then:
+Cross-filter OR
+Cross-highlight happens
+Measure recalculates
+🎯 Simple Flow
+Click Visual
+   ↓
+Filter Context Created
+   ↓
+Relationship applies filter
+   ↓
+Other visuals update
+   ↓
+Measure recalculates
+💡 Pro Tip (very useful)
+
+You can control behavior:
+
+👉 Select visual → Format → Edit interactions
+
+Change:
+Filter
+Highlight
+None
+🚀 Final takeaway
+Relationship = backbone (data flow)
+Cross-filter/highlight = visual behavior
+Measures = brain (calculation)
+
+If you want, I can:
+
+Show a real Power BI example using your Sales + Products model
+Or explain inactive relationships (very important for interviews) 👍
